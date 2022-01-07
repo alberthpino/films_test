@@ -7,11 +7,13 @@
 import React, { memo } from 'react';
 import { Layout, Row, Col } from 'antd';
 import Movie from '../Movie';
+import SearchBar from '../SearchBar';
 
 function ContentMovies(props) {
   return (
-    <div class="movie-card">
+    <div className="movie-card">
       <Layout.Content style={{ padding: '0 50px' }}>
+        <SearchBar />
         <Row>
           {props.movies.map(movie => (
             <Col lg={6} key={movie.id}>
