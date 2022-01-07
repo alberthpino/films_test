@@ -8,11 +8,17 @@ import React, { memo } from 'react';
 // import PropTypes from 'prop-types';
 import { Row, Col, Input } from 'antd';
 
-function SearchBar() {
+function SearchBar(props) {
   return (
     <Row>
-      <Col lg={{ span: 6 }} offset={{ lg: 16 }}>
-        <Input size="large" placeholder="Title, gender..." />
+      <Col lg={{ span: 6 }}>
+        <Input
+          allowClear
+          size="large"
+          value={props.searchTerm}
+          onChange={({ target }) => props.onSearch(target.value)}
+          placeholder="Title, gender..."
+        />
       </Col>
     </Row>
   );

@@ -23,3 +23,5 @@ export const CODE_FETCHING = {
     Unauthorized: 401,
   },
 };
+
+export const PAGE_SIZE = 16;

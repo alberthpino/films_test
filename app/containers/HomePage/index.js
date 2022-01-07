@@ -4,52 +4,87 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import makeSelectHomePage from './selectors';
+import {
+  makeSelectIsLoadingMovies,
+  makeSelectTotalMovies,
+  makeSelectMovies,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { Layout } from 'antd';
 import HeaderMovies from '../../components/HeaderMovies';
 import ContentMovies from '../../components/ContentMovies';
-import data from '../../utils/data/moviedata.json';
+import { getMovies } from './actions';
 
 export function HomePage(props) {
   useInjectReducer({ key: 'homePage', reducer });
   useInjectSaga({ key: 'homePage', saga });
 
-  const takeLatestMovies = movies => {
-    const result = [];
-    for (let i = 0; i < 16; i += 1) {
-      result.push(movies[i]);
-    }
-    return result;
+  const [searchTerm, setSearchTerm] = useState('');
+  const [movies, setMovies] = useState([]);
+  const [pageMovies, setPageMovies] = useState(1);
+
+  useEffect(() => {
+    setMovies(props.movies);
+  }, [props.movies]);
+
+  useEffect(() => {
+    const dataQuery = { search: '', page: pageMovies };
+    props.getMovies(dataQuery);
+  }, []);
+
+  const handleSearchMovie = search => {
+    const dataQuery = {
+      search,
+      page: 1,
+    };
+    props.getMovies(dataQuery);
+    setSearchTerm(search);
+  };
+
+  const handleLoadMore = () => {
+    if (props.isLoadingMovies) return;
+    setPageMovies(pageMovies + 1);
+    const dataQuery = {
+      search: searchTerm,
+      page: pageMovies + 1,
+    };
+    props.getMovies(dataQuery);
   };
 
   return (
     <Layout className="bg-dark">
       <HeaderMovies />
-      <ContentMovies movies={takeLatestMovies(data)} />
+      <ContentMovies
+        loadMore={handleLoadMore}
+        searchTerm={searchTerm}
+        onSearch={handleSearchMovie}
+        movies={movies}
+      />
     </Layout>
   );
 }
 
 HomePage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getMovies: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  homePage: makeSelectHomePage(),
+  isLoadingMovies: makeSelectIsLoadingMovies(),
+  totalMovies: makeSelectTotalMovies(),
+  movies: makeSelectMovies(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getMovies: data => dispatch(getMovies(data)),
   };
 }
 

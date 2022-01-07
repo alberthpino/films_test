@@ -1,6 +1,17 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
+import { GET_MOVIES } from './constants';
+import { getMoviesSuccess, getMoviesFail } from './actions';
+import { getMoviesStore } from '../../utils/storage';
 
-// Individual exports for testing
+function* getMoviesSaga(action) {
+  try {
+    const movies = yield call(getMoviesStore, action.payload);
+    yield put(getMoviesSuccess(movies));
+  } catch (error) {
+    yield put(getMoviesFail(error));
+  }
+}
+
 export default function* homePageSaga() {
-  // See example in containers/HomePage/saga.js
+  yield takeLatest(GET_MOVIES, getMoviesSaga);
 }

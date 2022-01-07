@@ -4,10 +4,25 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import { GET_MOVIES, GET_MOVIES_SUCCESS, GET_MOVIES_FAIL } from './constants';
 
-export function defaultAction() {
+export function getMovies(payload) {
   return {
-    type: DEFAULT_ACTION,
+    type: GET_MOVIES,
+    payload,
+  };
+}
+
+export function getMoviesSuccess(payload) {
+  return {
+    type: GET_MOVIES_SUCCESS,
+    payload,
+  };
+}
+
+export function getMoviesFail(payload) {
+  return {
+    type: GET_MOVIES_FAIL,
+    payload,
   };
 }
