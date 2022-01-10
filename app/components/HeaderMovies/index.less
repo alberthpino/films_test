@@ -1,11 +1,10 @@
 @import url('../../containers/App/constants.less');
 .home-header {
   padding: 30px;
-  min-height: 300px;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  background: url('https://occ-0-1723-1722.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABeTnYOZq4GB-VyNC3j57OvJGIkmsOyvDMmWk73VdugMUEjIppKIXzBUK543u6-3izMjOChA3zvUs_i0-dbZhPlHVVZAa.jpg');
-  background-size: cover;
+  min-height: 400px;
+  background-position: center top !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
   position: relative;
   &::after {
     content: '';
@@ -15,5 +14,60 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
     left: 0px;
+  }
+
+  &.first {
+    background: url('https://occ-0-1723-1722.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABeTnYOZq4GB-VyNC3j57OvJGIkmsOyvDMmWk73VdugMUEjIppKIXzBUK543u6-3izMjOChA3zvUs_i0-dbZhPlHVVZAa.jpg');
+  }
+
+  &.second {
+    background: url('https://i.blogs.es/d93d8d/marvel/1366_521.jpeg');
+  }
+
+  &.third {
+    background: url('https://as01.epimg.net/meristation/imagenes/2019/07/15/noticias/1563187625_893025_1563187685_noticia_normal.jpg');
+  }
+}
+
+.carousel-header {
+  .info {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%) translateX(50%);
+    right: 50%;
+
+    h1 {
+      font-size: calc(1.25vw + 1.25vh + 1.8rem);
+      line-height: calc(1.25vw + 1.25vh + 1.8rem);
+      color: #fff;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      color: #8da0bc;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .home-header {
+    min-height: 300px;
+    background-position: center top;
+  }
+
+  .carousel-header {
+    .info { 
+      width: 100% !important;
+      padding: 0 30px !important;
+
+      h1 {
+        font-size: 40px !important;
+      }
+  
+      h3 {
+        font-size: 20px !important;
+      }
+    }
   }
 }

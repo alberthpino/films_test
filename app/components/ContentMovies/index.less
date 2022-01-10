@@ -1,0 +1,55 @@
+@import url('../../containers/App/constants.less');
+
+.movie-card {
+  .movie-card-title {
+    display: flex;
+    justify-content: space-between;
+    h1 {
+      color: #fff;
+      font-size: 40px;
+      margin: 26px 0;
+      text-align: left;
+    }
+
+    > div {
+      margin: 42px 0;
+      text-align: right;
+    }
+  }
+
+  .ant-image {
+    .ant-image-img {
+      width: 100%;
+      min-height: 280px;
+    }
+  }
+
+  .ant-image-img-placeholder {
+    background-color: transparent;
+  }
+}
+
+@media (max-width: 767px) {
+  .movie-card {
+    padding: 0 !important;
+    .movie-card-title {
+      h1 {
+        display: none;
+      }
+    }
+  }
+
+  .ant-row .ant-col {
+    margin: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .movie-card {
+    .movie-card-title {
+      h1 {
+        font-size: 30px;
+      }
+    }
+  }
+}

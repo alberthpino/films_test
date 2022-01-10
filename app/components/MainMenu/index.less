@@ -1,0 +1,138 @@
+@import url('../../containers/App/constants.less');
+
+.ant-layout > .container {
+  position: relative;
+}
+
+.menu-main {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  right: 0;
+  top: 0;
+}
+
+.menu-options {
+  padding-top: 20px;
+  padding-bottom: 15px;
+
+  input {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-color: rgba(0, 122, 255, 0.7) !important;
+    border-radius: 20px !important;
+    color: #fff;
+  }
+
+  .ant-input-search {
+    .ant-input:hover,
+    .ant-input:focus {
+      border-color: #007aff !important;
+      box-shadow: initial !important;
+    }
+
+    .ant-input-group-addon {
+      background-color: transparent !important;
+      position: absolute;
+      right: 40px !important;
+      top: -3px;
+      left: auto !important;
+
+      button {
+        background-color: transparent !important;
+        border: 0 !important;
+
+        .anticon {
+          color: #007aff;
+        }
+      }
+    }
+  }
+
+  [ant-click-animating-without-extra-node='true']::after,
+  .ant-click-animating-node {
+    box-shadow: initial !important;
+  }
+}
+
+.ant-menu.ant-menu-dark {
+  background: transparent !important;
+
+  .ant-menu-item-selected {
+    background-color: transparent !important;
+  }
+
+  &.ant-menu-horizontal {
+    > .ant-menu-item {
+      padding: 15px 20px !important;
+
+      &:hover {
+        background-color: transparent !important;
+        color: #007aff !important;
+
+        .ant-dropdown-trigger > .anticon.anticon-down {
+          color: #007aff !important;
+        }
+
+        > span > a {
+          color: #007aff !important;
+        }
+      }
+    }
+
+    .ant-menu-item {
+      color: #fff !important;
+      font-size: 16px;
+
+      > span > a {
+        color: #fff !important;
+
+        &.active {
+          font-weight: bold;
+        }
+      }
+
+      .ant-dropdown-trigger > .anticon.anticon-down {
+        color: #007aff !important;
+        vertical-align: middle !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .menu-main {
+    display: flex;
+    flex-direction: column;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+  .menu-options {
+    display: flex;
+    justify-content: flex-end;
+    margin: auto;
+
+    .ant-input-search {
+      display: none !important;
+    }
+  }
+}
+
+.navbar-container {
+  background: #080f29;
+  height: 78px;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 999;
+  .navbar-fixed-top {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    height: 78px;
+    background: #080f29;
+  }
+}

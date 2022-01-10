@@ -5,7 +5,6 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { Image } from 'antd';
 import imageDefault from '../../images/icon-512x512.png';
 import './index.less';
@@ -18,7 +17,5 @@ function EmptyResults() {
     </div>
   );
 }
-
-EmptyResults.propTypes = {};
 
 export default EmptyResults;

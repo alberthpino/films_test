@@ -33,4 +33,16 @@ export const makeSelectTotalMovies = () =>
     state => state.get('totalMovies'),
   );
 
+export const makeSelectIsLoadingFavorites = () =>
+  createSelector(
+    selectHomePageDomain,
+    state => state.get('isLoadingFavorites'),
+  );
+
+export const makeSelectFavorites = () =>
+  createSelector(
+    selectHomePageDomain,
+    state => state.get('favorites'),
+  );
+
 export { selectHomePageDomain };

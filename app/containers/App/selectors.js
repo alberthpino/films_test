@@ -1,11 +1,30 @@
 import { createSelector } from 'reselect';
+import { initialState } from './reducer';
 
-const selectRouter = state => state.router;
+const selectAppDomain = state => state.app || initialState;
 
-const makeSelectLocation = () =>
+export const makeSelectGenres = () =>
   createSelector(
-    selectRouter,
-    routerState => routerState.location,
+    selectAppDomain,
+    state => state.get('genres'),
   );
 
-export { makeSelectLocation };
+export const makeSelectIsLoadingFavorites = () =>
+  createSelector(
+    selectAppDomain,
+    state => state.get('isLoadingFavorites'),
+  );
+
+export const makeSelectFavorites = () =>
+  createSelector(
+    selectAppDomain,
+    state => state.get('favorites'),
+  );
+
+export const makeSelectIsLoadingSendMessage = () =>
+  createSelector(
+    selectAppDomain,
+    state => state.get('isLoadingMessage'),
+  );
+
+export { selectAppDomain };
