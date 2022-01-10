@@ -1,8 +1,9 @@
-export const BASE_URL = 'http://localhost';
+export const BASE_URL = 'http://innovahora.com';
 
 export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
 export const DAEMON = '@@saga-injector/daemon';
 export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
+export const FAVORITES_KEY = 'FAVORITES_KEY';
 
 export const TYPE_FETCHING = {
   post: 'POST',
@@ -23,3 +24,5 @@ export const CODE_FETCHING = {
     Unauthorized: 401,
   },
 };
+
+export const PAGE_SIZE = 16;
