@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { TYPE_FETCHING, CODE_FETCHING, BASE_URL } from './constants';
+import { LOCAL_TOKEN, clearStorage } from './storage';
 
 async function returnFuntionAsync(callback = null) {
   if (callback !== null) {
@@ -9,6 +10,7 @@ async function returnFuntionAsync(callback = null) {
       return error;
     }
   }
+
   return null;
 }
 
@@ -17,6 +19,7 @@ function returnFunction(callback, all = false) {
     return callback
       .then(response => {
         if (response.status === CODE_FETCHING.error.Unauthorized) {
+          clearStorage();
           return false;
         }
         return response;
@@ -29,12 +32,14 @@ function returnFunction(callback, all = false) {
   return callback
     .then(response => {
       if (response.status === CODE_FETCHING.error.Unauthorized) {
+        clearStorage();
         return false;
       }
       return response.data;
     })
     .catch(error => {
       if (error.response.status === CODE_FETCHING.error.Unauthorized) {
+        clearStorage();
       }
       throw error;
     });
@@ -45,11 +50,13 @@ export const api = (
   method = TYPE_FETCHING.get,
   params = {},
   asyncr = false,
+  file = false,
 ) => {
   const options = {
     method,
     url: `${BASE_URL}/${url}`,
     headers: {
+      Authorization: `Bearer ${LOCAL_TOKEN}`,
       Accept: 'application/json',
     },
   };
@@ -57,6 +64,10 @@ export const api = (
   switch (method) {
     case TYPE_FETCHING.post:
       options.data = params;
+      if (file) {
+        options.headers['content-type'] = 'multipart/form-data';
+        options.data = params.file;
+      }
       break;
     default:
       options.params = params;

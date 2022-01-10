@@ -13,8 +13,9 @@ export default function NotFound() {
   return (
     <Layout className="bg-dark not-found-page">
       <div align="center">
-        <Image src={imagePageNotFound} preview={false} width={200} />
-        <h1 className="not-found-subtitle">Wellcome</h1>
+        <Image src={imagePageNotFound} width={200} />
+        <h1 className="not-found-subtitle">404</h1>
+        <h2 className="not-found-subtitle">Page not found</h2>
       </div>
     </Layout>
   );

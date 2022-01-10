@@ -15,34 +15,11 @@ const selectHomePageDomain = state => state.homePage || initialState;
  * Default selector used by HomePage
  */
 
-export const makeSelectIsLoadingMovies = () =>
+const makeSelectHomePage = () =>
   createSelector(
     selectHomePageDomain,
-    state => state.get('isLoadingMovies'),
+    substate => substate,
   );
 
-export const makeSelectMovies = () =>
-  createSelector(
-    selectHomePageDomain,
-    state => state.get('movies'),
-  );
-
-export const makeSelectTotalMovies = () =>
-  createSelector(
-    selectHomePageDomain,
-    state => state.get('totalMovies'),
-  );
-
-export const makeSelectIsLoadingFavorites = () =>
-  createSelector(
-    selectHomePageDomain,
-    state => state.get('isLoadingFavorites'),
-  );
-
-export const makeSelectFavorites = () =>
-  createSelector(
-    selectHomePageDomain,
-    state => state.get('favorites'),
-  );
-
+export default makeSelectHomePage;
 export { selectHomePageDomain };

@@ -15,6 +15,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
+import es_ES from 'antd/es/locale/es_ES';
 import { ConfigProvider } from 'antd';
 // Import root app
 import App from 'containers/App';
@@ -43,7 +44,7 @@ const render = messages => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ConnectedRouter history={history}>
-          <ConfigProvider>
+          <ConfigProvider locale={es_ES}>
             <App />
           </ConfigProvider>
         </ConnectedRouter>
