@@ -44,7 +44,13 @@ function Movie(props) {
 
   return (
     <div className="movie-card" align="center">
-      <Image placeholder width={200} src={image} onError={handleError} />
+      <Image
+        placeholder
+        width={200}
+        className="movie-image"
+        src={image}
+        onError={handleError}
+      />
       <h2 align="center" className="movie-title">
         {props.movie.title}
       </h2>
