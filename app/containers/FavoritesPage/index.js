@@ -5,6 +5,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -60,9 +61,9 @@ export function FavoritesPage(props) {
 
   const { Content } = Layout;
 
-  const handleSendMessage = ({ email }) => {
+  const handleSendMessage = data => {
     const dataQuery = {
-      email,
+      email: data.email,
       title: movieShare.title,
       date: exist(movieShare.info.release_date)
         ? formatDate(movieShare.info.release_date)
@@ -80,7 +81,7 @@ export function FavoritesPage(props) {
   return (
     <Layout className="bg-dark wrapper-main">
       <MainMenu menuActive="favorites" genres={props.genres} />
-      <HeaderMovies title={'favorites'} />
+      <HeaderMovies title="favorites" />
       <Content style={{ padding: '0 50px' }}>
         <ContentMovies
           favorites={props.favorites}
@@ -122,5 +123,14 @@ const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
 );
+
+FavoritesPage.propTypes = {
+  getFavorites: PropTypes.func,
+  addFavorite: PropTypes.func,
+  sendMessage: PropTypes.func,
+  isLoadingShare: PropTypes.bool,
+  favorites: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  genres: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+};
 
 export default compose(withConnect)(FavoritesPage);

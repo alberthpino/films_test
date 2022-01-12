@@ -12,6 +12,7 @@ import { compose } from 'redux';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+import { Layout } from 'antd';
 import {
   makeSelectIsLoadingMovies,
   makeSelectMovies,
@@ -24,7 +25,6 @@ import {
 } from '../App/selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { Layout } from 'antd';
 import MainMenu from '../../components/MainMenu';
 import HeaderMovies from '../../components/HeaderMovies';
 import ContentMovies from '../../components/ContentMovies';
@@ -87,9 +87,9 @@ export function MoviesPage(props) {
 
   const { Content } = Layout;
 
-  const handleSendMessage = ({ email }) => {
+  const handleSendMessage = data => {
     const dataQuery = {
-      email,
+      email: data.email,
       title: movieShare.title,
       date: exist(movieShare.info.release_date)
         ? formatDate(movieShare.info.release_date)
@@ -139,6 +139,14 @@ export function MoviesPage(props) {
 
 MoviesPage.propTypes = {
   addFavorite: PropTypes.func.isRequired,
+  getMovies: PropTypes.func.isRequired,
+  sendMessage: PropTypes.func,
+  isLoadingMovies: PropTypes.bool,
+  genres: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  favorites: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  movies: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  totalMovies: PropTypes.number,
+  isLoadingShare: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({

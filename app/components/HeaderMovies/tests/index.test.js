@@ -9,10 +9,12 @@
 import React from 'react';
 import { render } from 'react-testing-library';
 import { IntlProvider } from 'react-intl';
-// import 'jest-dom/extend-expect'; // add some helpful assertions
-
+import Adapter from 'enzyme-adapter-react-16';
+import { configure, shallow } from 'enzyme';
 import HeaderMovies from '../index';
 import { DEFAULT_LOCALE } from '../../../i18n';
+
+configure({ adapter: new Adapter() });
 
 describe('<HeaderMovies />', () => {
   it('Expect to not log errors in console', () => {
@@ -26,7 +28,9 @@ describe('<HeaderMovies />', () => {
   });
 
   it('Expect to have additional unit tests specified', () => {
-    expect(true).toEqual(false);
+    const header = shallow(<HeaderMovies />);
+    const wrapper = header.find('.home-header');
+    expect(wrapper.length).toEqual(3);
   });
 
   /**

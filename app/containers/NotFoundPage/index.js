@@ -6,8 +6,8 @@
  */
 
 import React from 'react';
-import imagePageNotFound from '../../images/icon-512x512.png';
 import { Image, Layout } from 'antd';
+import imagePageNotFound from '../../images/icon-512x512.png';
 
 export default function NotFound() {
   return (

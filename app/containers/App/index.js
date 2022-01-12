@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 import { Switch, Route } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
@@ -37,10 +39,10 @@ const App = props => {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/favorites" component={FavoritesPage} />
         <Route exact path="/movies" component={MoviesPage} />
-        {props.genres.map((genre, index) => (
+        {props.genres.map(genre => (
           <Route
             exact
-            key={index}
+            key={uuidv4()}
             path={`/genre/${genre}`}
             component={GenrePage}
           />
@@ -68,5 +70,11 @@ const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
 );
+
+App.propTypes = {
+  getGenders: PropTypes.func,
+  getFavorites: PropTypes.func,
+  genres: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+};
 
 export default compose(withConnect)(App);

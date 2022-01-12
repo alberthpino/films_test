@@ -1,4 +1,5 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
+import { message } from 'antd';
 import {
   GET_GENRES,
   ADD_FAVORITE,
@@ -17,7 +18,6 @@ import {
 } from './actions';
 import { getGenres, addFavorite, getFavoriteMovies } from '../../utils/storage';
 import { apiSendMessage } from '../../utils/routes';
-import { message } from 'antd';
 
 function* getGenresSaga(action) {
   try {

@@ -9,24 +9,41 @@
 import React from 'react';
 import { render } from 'react-testing-library';
 import { IntlProvider } from 'react-intl';
-// import 'jest-dom/extend-expect'; // add some helpful assertions
-
+import Adapter from 'enzyme-adapter-react-16';
+import { configure, shallow } from 'enzyme';
 import Movie from '../index';
 import { DEFAULT_LOCALE } from '../../../i18n';
 
+configure({ adapter: new Adapter() });
+
 describe('<Movie />', () => {
+  const data = {
+    movie: {
+      title: 'Notorious',
+      info: {
+        rating: '',
+        running_time_secs: '',
+      },
+    },
+    favorite: false,
+    addFavorite: () => {},
+    onShare: () => {},
+  };
+
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
     render(
       <IntlProvider locale={DEFAULT_LOCALE}>
-        <Movie />
+        <Movie {...data} />
       </IntlProvider>,
     );
     expect(spy).not.toHaveBeenCalled();
   });
 
   it('Expect to have additional unit tests specified', () => {
-    expect(true).toEqual(false);
+    const header = shallow(<Movie {...data} />);
+    const wrapper = header.find('.movie-title');
+    expect(wrapper.text()).toBe('Notorious');
   });
 
   /**
@@ -39,7 +56,7 @@ describe('<Movie />', () => {
       container: { firstChild },
     } = render(
       <IntlProvider locale={DEFAULT_LOCALE}>
-        <Movie />
+        <Movie {...data} />
       </IntlProvider>,
     );
     expect(firstChild).toMatchSnapshot();

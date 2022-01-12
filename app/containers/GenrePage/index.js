@@ -9,9 +9,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+import { Layout } from 'antd';
 import {
   makeSelectMoviesGenre,
   makeSelectTotalMoviesGenre,
@@ -24,7 +24,6 @@ import {
 } from '../App/selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { Layout } from 'antd';
 import MainMenu from '../../components/MainMenu';
 import HeaderMovies from '../../components/HeaderMovies';
 import ContentMovies from '../../components/ContentMovies';
@@ -81,7 +80,7 @@ export function GenrePage(props) {
     props.addFavorite(movie);
   };
 
-  const handleSearchMovie = term => {
+  const handleSearchMovie = () => {
     setPageMovies(1);
     const dataQuery = {
       page: 1,
@@ -91,9 +90,9 @@ export function GenrePage(props) {
     props.getMoviesGenre(dataQuery);
   };
 
-  const handleSendMessage = ({ email }) => {
+  const handleSendMessage = data => {
     const dataQuery = {
-      email,
+      email: data.email,
       title: movieShare.title,
       date: exist(movieShare.info.release_date)
         ? formatDate(movieShare.info.release_date)
@@ -143,6 +142,12 @@ GenrePage.propTypes = {
   addFavorite: PropTypes.func.isRequired,
   sendMessage: PropTypes.func.isRequired,
   getMoviesGenre: PropTypes.func.isRequired,
+  isLoadingShare: PropTypes.bool,
+  isLoadingMovies: PropTypes.bool,
+  totalMovies: PropTypes.number,
+  favorites: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  genres: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  movies: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -5,12 +5,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Modal, Form, Input, Button } from 'antd';
 
 function ModalShare(props) {
   return (
     <Modal visible={props.visible} title="Share movie" footer={null}>
-      <Form ref={props.formRef} layout={'vertical'} onFinish={props.onOk}>
+      <Form ref={props.formRef} layout="vertical" onFinish={props.onOk}>
         <Form.Item
           label="Email"
           name="email"
@@ -46,6 +47,14 @@ function ModalShare(props) {
   );
 }
 
-ModalShare.propTypes = {};
+ModalShare.propTypes = {
+  visible: PropTypes.bool,
+  formRef: PropTypes.object,
+  onOk: PropTypes.func,
+  onChangeEmail: PropTypes.func,
+  onCancel: PropTypes.func,
+  loading: PropTypes.bool,
+  email: PropTypes.string,
+};
 
 export default ModalShare;

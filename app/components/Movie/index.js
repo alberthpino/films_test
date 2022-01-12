@@ -4,8 +4,9 @@
  *
  */
 
-import React, { memo, useEffect, useState, useRef } from 'react';
-import { Image, Button, Tooltip, Popover, Input } from 'antd';
+import React, { memo, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { Image, Button, Tooltip, Popover } from 'antd';
 import {
   HeartOutlined,
   InfoCircleOutlined,
@@ -89,5 +90,12 @@ function Movie(props) {
     </div>
   );
 }
+
+Movie.propTypes = {
+  movie: PropTypes.object,
+  favorite: PropTypes.bool,
+  addFavorite: PropTypes.func,
+  onShare: PropTypes.func,
+};
 
 export default memo(Movie);

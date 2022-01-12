@@ -11,6 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+import { Layout } from 'antd';
 import {
   makeSelectMovies,
   makeSelectTotalMovies,
@@ -24,7 +25,6 @@ import {
 } from '../App/selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { Layout } from 'antd';
 import MainMenu from '../../components/MainMenu';
 import HeaderMovies from '../../components/HeaderMovies';
 import ContentMovies from '../../components/ContentMovies';
@@ -66,14 +66,14 @@ export function HomePage(props) {
       didMount.current = true;
       const dataQuery = { search: '', page: pageMovies };
 
-      if (
-        exist(dateRange) &&
-        dateRange.length > 0 &&
-        dateRange[0] &&
-        dateRange[1]
-      ) {
-        dataQuery.start_date = dateRange[0];
-        dataQuery.end_date = dateRange[1];
+      if (exist(dateRange) && dateRange.length > 0) {
+        const [startDate, endDate] = dateRange;
+        if (startDate) {
+          dataQuery.startDate = startDate;
+        }
+        if (endDate) {
+          dataQuery.endDate = endDate;
+        }
       }
 
       props.getMovies(dataQuery);
@@ -88,14 +88,14 @@ export function HomePage(props) {
       search: searchTerm,
       page: pageMovies + 1,
     };
-    if (
-      exist(dateRange) &&
-      dateRange.length > 0 &&
-      dateRange[0] &&
-      dateRange[1]
-    ) {
-      dataQuery.start_date = dateRange[0];
-      dataQuery.end_date = dateRange[1];
+    if (exist(dateRange) && dateRange.length > 0) {
+      const [startDate, endDate] = dateRange;
+      if (startDate) {
+        dataQuery.startDate = startDate;
+      }
+      if (endDate) {
+        dataQuery.endDate = endDate;
+      }
     }
     props.getMovies(dataQuery);
   };
@@ -118,14 +118,14 @@ export function HomePage(props) {
       page: 1,
     };
 
-    if (
-      exist(dateRange) &&
-      dateRange.length > 1 &&
-      dateRange[0] &&
-      dateRange[1]
-    ) {
-      dataQuery.start_date = dateRange[0];
-      dataQuery.end_date = dateRange[1];
+    if (exist(dateRange) && dateRange.length > 1) {
+      const [startDate, endDate] = dateRange;
+      if (startDate) {
+        dataQuery.startDate = startDate;
+      }
+      if (endDate) {
+        dataQuery.endDate = endDate;
+      }
     }
 
     props.getMovies(dataQuery);
@@ -133,9 +133,9 @@ export function HomePage(props) {
 
   const { Content } = Layout;
 
-  const handleSendMessage = ({ email }) => {
+  const handleSendMessage = data => {
     const dataQuery = {
-      email,
+      email: data.email,
       title: movieShare.title,
       date: exist(movieShare.info.release_date)
         ? formatDate(movieShare.info.release_date)
@@ -188,6 +188,15 @@ export function HomePage(props) {
 
 HomePage.propTypes = {
   getMovies: PropTypes.func.isRequired,
+  movies: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  getFavorites: PropTypes.func.isRequired,
+  addFavorite: PropTypes.func.isRequired,
+  sendMessage: PropTypes.func.isRequired,
+  isLoadingShare: PropTypes.bool,
+  isLoadingMovies: PropTypes.bool,
+  genres: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  totalMovies: PropTypes.number,
+  favorites: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 };
 
 const mapStateToProps = createStructuredSelector({

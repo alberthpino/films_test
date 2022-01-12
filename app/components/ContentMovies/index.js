@@ -5,6 +5,8 @@
  */
 
 import React, { memo } from 'react';
+import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 import { Layout, Row, Col, Skeleton } from 'antd';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Movie from '../Movie';
@@ -39,7 +41,7 @@ function ContentMovies(props) {
           >
             <Row>
               {props.movies.map(movie => (
-                <Col lg={6} sm={12} key={movie.title}>
+                <Col lg={6} sm={12} key={uuidv4()}>
                   <Movie
                     movie={movie}
                     favorite={evalFavorite(movie, props.favorites)}
@@ -57,5 +59,19 @@ function ContentMovies(props) {
     </div>
   );
 }
+
+ContentMovies.propTypes = {
+  hasFilter: PropTypes.bool,
+  dateRange: PropTypes.any,
+  setDateRange: PropTypes.func,
+  movies: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  onShare: PropTypes.func,
+  addFavorite: PropTypes.func,
+  loadMore: PropTypes.func,
+  onSearchDates: PropTypes.func,
+  loadingMovies: PropTypes.bool,
+  totalMovies: PropTypes.number,
+  favorites: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+};
 
 export default memo(ContentMovies);

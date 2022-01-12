@@ -1,4 +1,4 @@
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
 import { GET_MOVIES } from './constants';
 import { getMoviesSuccess, getMoviesFail } from './actions';
 import { getMoviesStore } from '../../utils/storage';

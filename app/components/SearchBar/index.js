@@ -5,7 +5,7 @@
  */
 
 import React, { memo } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { SearchOutlined } from '@ant-design/icons';
 import { DatePicker, Button } from 'antd';
 import './index.less';
@@ -13,7 +13,7 @@ import './index.less';
 function SearchBar(props) {
   return (
     <div className="date-picker">
-      <label className="label-by-release">Search by release:</label>
+      <p className="label-by-release">Search by release:</p>
       <DatePicker.RangePicker
         allowClear
         size="large"
@@ -35,5 +35,12 @@ function SearchBar(props) {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  dateRange: PropTypes.array,
+  setDateRange: PropTypes.func,
+  onSearchDates: PropTypes.func,
+  loading: PropTypes.bool,
+};
 
 export default memo(SearchBar);

@@ -34,8 +34,6 @@ function returnFunction(callback, all = false) {
       return response.data;
     })
     .catch(error => {
-      if (error.response.status === CODE_FETCHING.error.Unauthorized) {
-      }
       throw error;
     });
 }

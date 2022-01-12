@@ -41,11 +41,11 @@
     "lint:staged": "lint-staged",
     "pretest": "npm run test:clean && npm run lint",
     "test:clean": "rimraf ./coverage",
-    "test": "cross-env NODE_ENV=test jest --coverage",
+    "test": "cross-env NODE_ENV=test jest",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "prettify": "prettier --write",
-    "deploy": "aws s3 sync build/ s3://reclutamiento-frontend-webapp --acl public-read"
+    "deploy": "aws s3 sync build/ s3://movie-test-dev --acl public-read"
   },
   "browserslist": [
     "last 2 versions",
@@ -98,7 +98,8 @@
     "redux-saga": "1.0.2",
     "reselect": "4.0.0",
     "sanitize.css": "8.0.0",
-    "styled-components": "4.2.0"
+    "styled-components": "4.2.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",
@@ -125,6 +126,8 @@
     "compression-webpack-plugin": "2.0.0",
     "coveralls": "3.0.3",
     "css-loader": "2.1.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "eslint": "5.16.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-config-airbnb-base": "13.1.0",
@@ -173,5 +176,8 @@
     "webpack-hot-middleware": "2.24.3",
     "webpack-pwa-manifest": "4.0.0",
     "whatwg-fetch": "3.0.0"
-  }
+  },
+  "setupFiles": [
+    "./app/setupTests.js"
+  ]
 }
