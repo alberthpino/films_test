@@ -41,8 +41,8 @@ describe('<Movie />', () => {
   });
 
   it('Expect to have additional unit tests specified', () => {
-    const header = shallow(<Movie {...data} />);
-    const wrapper = header.find('.movie-title');
+    const movie = shallow(<Movie {...data} />);
+    const wrapper = movie.find('.movie-title');
     expect(wrapper.text()).toBe('Notorious');
   });
 

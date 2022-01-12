@@ -12,6 +12,10 @@ RUN
 
 - npm run start
 
+TEST
+
+- npm run test
+
 BUILD
 
 - npm run build

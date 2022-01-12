@@ -25,6 +25,7 @@ function ModalShare(props) {
         >
           <Input
             name="email"
+            className="input-share"
             value={props.email}
             onChange={({ target }) => props.onChangeEmail(target.value)}
             placeholder="email"

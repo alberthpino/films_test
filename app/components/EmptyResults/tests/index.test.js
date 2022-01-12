@@ -9,10 +9,13 @@
 import React from 'react';
 import { render } from 'react-testing-library';
 import { IntlProvider } from 'react-intl';
-// import 'jest-dom/extend-expect'; // add some helpful assertions
+import Adapter from 'enzyme-adapter-react-16';
+import { configure, shallow } from 'enzyme';
 
 import EmptyResults from '../index';
 import { DEFAULT_LOCALE } from '../../../i18n';
+
+configure({ adapter: new Adapter() });
 
 describe('<EmptyResults />', () => {
   it('Expect to not log errors in console', () => {
@@ -26,7 +29,9 @@ describe('<EmptyResults />', () => {
   });
 
   it('Expect to have additional unit tests specified', () => {
-    expect(true).toEqual(true);
+    const empty = shallow(<EmptyResults />);
+    const wrapper = empty.find('.empty-text');
+    expect(wrapper.text()).toBe('No results found');
   });
 
   /**

@@ -9,24 +9,52 @@
 import React from 'react';
 import { render } from 'react-testing-library';
 import { IntlProvider } from 'react-intl';
-// import 'jest-dom/extend-expect'; // add some helpful assertions
-
+import Adapter from 'enzyme-adapter-react-16';
+import { configure, shallow } from 'enzyme';
 import ModalShare from '../index';
 import { DEFAULT_LOCALE } from '../../../i18n';
 
+configure({ adapter: new Adapter() });
+
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // Deprecated
+    removeListener: jest.fn(), // Deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
+
 describe('<ModalShare />', () => {
+  const data = {
+    visible: true,
+    formRef: null,
+    onOk: () => {},
+    onChangeEmail: () => {},
+    onCancel: () => {},
+    loading: false,
+    email: '',
+  };
+
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
     render(
       <IntlProvider locale={DEFAULT_LOCALE}>
-        <ModalShare />
+        <ModalShare {...data} />
       </IntlProvider>,
     );
     expect(spy).not.toHaveBeenCalled();
   });
 
   it('Expect to have additional unit tests specified', () => {
-    expect(true).toEqual(true);
+    const modal = shallow(<ModalShare {...data} />);
+    const wrapper = modal.find('.input-share');
+    expect(wrapper).toHaveLength(1);
   });
 
   /**
@@ -39,7 +67,7 @@ describe('<ModalShare />', () => {
       container: { firstChild },
     } = render(
       <IntlProvider locale={DEFAULT_LOCALE}>
-        <ModalShare />
+        <ModalShare {...data} />
       </IntlProvider>,
     );
     expect(firstChild).toMatchSnapshot();

@@ -9,20 +9,42 @@
 import React from 'react';
 import { render } from 'react-testing-library';
 import { IntlProvider } from 'react-intl';
-// import 'jest-dom/extend-expect'; // add some helpful assertions
-
+import Adapter from 'enzyme-adapter-react-16';
+import { configure, shallow } from 'enzyme';
 import ContentMovies from '../index';
 import { DEFAULT_LOCALE } from '../../../i18n';
 
+configure({ adapter: new Adapter() });
+
 describe('<ContentMovies />', () => {
+  const data = {
+    hasFilter: false,
+    dateRange: [null, null],
+    setDateRange: () => {},
+    movies: [],
+    onShare: () => {},
+    addFavorite: () => {},
+    loadMore: () => {},
+    onSearchDates: () => {},
+    loadingMovies: false,
+    totalMovies: 0,
+    favorites: [],
+  };
+
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
     render(
       <IntlProvider locale={DEFAULT_LOCALE}>
-        <ContentMovies />
+        <ContentMovies {...data} />
       </IntlProvider>,
     );
     expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('Expect to have additional unit tests specified', () => {
+    const empty = shallow(<ContentMovies {...data} />);
+    const title = empty.find('h1');
+    expect(title.text()).toBe('Películas en estreno');
   });
 
   /**
@@ -35,7 +57,7 @@ describe('<ContentMovies />', () => {
       container: { firstChild },
     } = render(
       <IntlProvider locale={DEFAULT_LOCALE}>
-        <ContentMovies />
+        <ContentMovies {...data} />
       </IntlProvider>,
     );
     expect(firstChild).toMatchSnapshot();
